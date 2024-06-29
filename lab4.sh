@@ -17,16 +17,30 @@ case "$1" in
       date >> "log$i.txt"
     done
     ;;
+  --error|-e)
+    num_files=100
+    if [ -n "$2" ]; then
+      num_files=$2
+    fi
+    mkdir -p errorx
+    for ((i=1; i<=num_files; i++)); do
+      echo "error$i/error$i.txt" > "errorx/error$i.txt"
+      echo "Nazwa skryptu: $SCRIPT_NAME" >> "errorx/error$i.txt"
+      date >> "errorx/error$i.txt"
+    done
+    ;;
   --init)
     git clone "$REPO_URL" cloned_repo
     export PATH=$PATH:$(pwd)/cloned_repo
     echo "Repozytorium sklonowane i zaktualizowano PATH."
     ;;
   --help|-h)
-    echo "Użycie: lab4.sh [OPCJA]"
-    echo "--date           Wyświetl dzisiejszą datę"
-    echo "--logs [N]       Utwórz N plików log (domyślnie: 100)"
-    echo "--help           Wyświetl tę widomość pomocy"
+    echo "Użycie: $SCRIPT_NAME [OPCJA]"
+    echo "--date, -d       Wyświetla dzisiejszą datę"
+    echo "--logs, -l [N]   Tworzy N plików dziennika (domyślnie: 100)"
+    echo "--error, -e [N]  Tworzy N plików błędów (domyślnie: 100)"
+    echo "--init           Klonuje repozytorium i aktualizuje ścieżkę"
+    echo "--help, -h       Wyświetla tę wiadomość pomocy"
     ;;
   *)
     echo "Nieprawidłowa opcja. Użyj --help, aby uzyskać informacje o użyciu."
