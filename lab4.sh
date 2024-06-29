@@ -1,10 +1,10 @@
 #!/bin/bash
 
 case "$1" in
-  --date)
+  --date|-d)
     date
     ;;
-  --logs)
+  --logs|-1)
     num_files=100
     if [ -n "$2" ]; then
       num_files=$2
@@ -15,7 +15,7 @@ case "$1" in
       date >> "log$i.txt"
     done
     ;;
-  --help)
+  --help|-h)
     echo "Użycie: lab4.sh [OPCJA]"
     echo "--date           Wyświetl dzisiejszą datę"
     echo "--logs [N]       Utwórz N plików log (domyślnie: 100)"
